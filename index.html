@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Người Kể Chuyện AI Chuyên Nghiệp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { /* Default to Daytime Theme Variables - will be overridden by specific theme */
+            --theme-bg-primary: #FEFDE8; /* Bright Sunlight - Light Yellow */
+            --theme-bg-secondary: #FFFJFA; /* Brighter Sunlight - Off White */
+            --theme-bg-tertiary: #FEF9C3; /* Soft Yellow */
+            --theme-bg-input: #FFFFFF;
+            --theme-bg-advanced-toggle: #FEF08A; /* Bright Yellow */
+            --theme-bg-advanced-toggle-hover: #FDE68A; /* Slightly Darker Bright Yellow */
+            --theme-bg-advanced-toggle-disabled: #E5E7EB; 
+
+            --theme-text-primary: #422006; /* Dark Brown for contrast on light yellow */
+            --theme-text-secondary: #713F12; /* Medium Brown */
+            --theme-text-accent: #D97706; /* Amber for accents */
+            --theme-text-advanced-toggle: #713F12; 
+            --theme-text-advanced-toggle-disabled: #6B7280; 
+            --theme-text-button-primary: #FFFFFF;
+            --theme-text-placeholder: #A16207; /* Amber text placeholder */
+
+            --theme-border-primary: #FCD34D; /* Yellow border */
+            --theme-border-accent: #F59E0B; /* Amber border accent */
+            --theme-border-dashed: #FCD34D; 
+            --theme-border-advanced: #FDBA74; /* Light orange border */
+            
+            --theme-accent-primary: #F59E0B; /* Amber */
+            --theme-accent-primary-hover: #D97706; /* Darker Amber */
+            --theme-accent-secondary: #FACC15; /* Yellow */
+
+            --theme-ring-focus: #F59E0B; /* Amber focus */
+
+            --theme-scrollbar-thumb: #FCD34D;
+            --theme-scrollbar-track: var(--theme-bg-primary);
+
+            --theme-icon-filter: invert(60%) sepia(80%) saturate(900%) hue-rotate(350deg) brightness(100%) contrast(95%); /* Amber/Yellow like */
+        }
+
+        body.theme-dawn { /* Lam nhạt - Light Blue */
+            --theme-bg-primary: #E0F2FE; /* Tailwind sky-100 (light blue) */
+            --theme-bg-secondary: #F0F9FF; /* Tailwind sky-50 (lighter blue) */
+            --theme-bg-tertiary: #DBEAFE; /* Tailwind blue-100 (soft blue) */
+            --theme-bg-input: #F0F9FF;
+            --theme-bg-advanced-toggle: #BFDBFE; /* Tailwind blue-200 */
+            --theme-bg-advanced-toggle-hover: #93C5FD; /* Tailwind blue-300 */
+
+            --theme-text-primary: #1E3A8A; /* Tailwind blue-800 (dark blue text) */
+            --theme-text-secondary: #2563EB; /* Tailwind blue-600 (medium blue text) */
+            --theme-text-accent: #3B82F6; /* Tailwind blue-500 (accent blue) */
+            --theme-text-advanced-toggle: #1E40AF; /* Tailwind blue-700 */
+            --theme-text-button-primary: #ffffff;
+            --theme-text-placeholder: #60A5FA; /* Tailwind blue-400 */
+
+            --theme-border-primary: #93C5FD; /* Tailwind blue-300 */
+            --theme-border-accent: #60A5FA; /* Tailwind blue-400 */
+            --theme-border-dashed: #BFDBFE;
+            --theme-border-advanced: #A5B4FC; /* Tailwind indigo-300 (for a slight contrast) */
+            
+            --theme-accent-primary: #3B82F6; /* Tailwind blue-500 */
+            --theme-accent-primary-hover: #2563EB; /* Tailwind blue-600 */
+            --theme-accent-secondary: #60A5FA; /* Tailwind blue-400 */
+            --theme-ring-focus: #3B82F6;
+            --theme-icon-filter: invert(49%) sepia(76%) saturate(2375%) hue-rotate(203deg) brightness(98%) contrast(95%); /* Blueish filter */
+        }
+
+        body.theme-daytime { /* Ánh sáng mặt trời - Sunlight Theme */
+            --theme-bg-primary: #FEFDE8; /* Very light yellow, like pale sun */
+            --theme-bg-secondary: #FFFJFA; /* Whiter/brighter */
+            --theme-bg-tertiary: #FEF9C3; /* Tailwind yellow-100, soft sun glow */
+            --theme-bg-input: #FFFFFF;
+            --theme-bg-advanced-toggle: #FEF08A; /* Tailwind yellow-300 */
+            --theme-bg-advanced-toggle-hover: #FDE047; /* Tailwind yellow-400 */
+
+            --theme-text-primary: #422006; /* Dark Brown for contrast on light yellow */
+            --theme-text-secondary: #713F12; /* Tailwind amber-800 */
+            --theme-text-accent: #D97706; /* Tailwind amber-600 */
+            --theme-text-advanced-toggle: #713F12; /* Tailwind amber-800 */
+            --theme-text-button-primary: #ffffff;
+            --theme-text-placeholder: #A16207; /* Tailwind amber-700 */
+
+            --theme-border-primary: #FCD34D; /* Tailwind yellow-400 border */
+            --theme-border-accent: #F59E0B; /* Tailwind amber-500 */
+            --theme-border-dashed: #FDE68A; /* Tailwind yellow-200 */
+            --theme-border-advanced: #FDBA74; /* Tailwind orange-300 (warm advanced border) */
+            
+            --theme-accent-primary: #F59E0B; /* Tailwind amber-500 */
+            --theme-accent-primary-hover: #D97706; /* Tailwind amber-600 */
+            --theme-accent-secondary: #FACC15; /* Tailwind yellow-500 */
+            --theme-ring-focus: #F59E0B; /* Amber focus */
+             --theme-icon-filter: invert(65%) sepia(61%) saturate(2152%) hue-rotate(359deg) brightness(100%) contrast(93%); /* Yellow/Amberish */
+        }
+
+        body.theme-dusk { /* Vàng buổi chiều - Afternoon Yellow/Dusk Theme */
+            --theme-bg-primary: #FEF3C7; /* Tailwind amber-100 (pale yellow-orange) */
+            --theme-bg-secondary: #FFFBEB; /* Tailwind yellow-50 (lighter) */
+            --theme-bg-tertiary: #FDE68A; /* Tailwind yellow-200 (soft gold) */
+            --theme-bg-input: #FFFBEB;
+            --theme-bg-advanced-toggle: #FCD34D; /* Tailwind yellow-400 */
+            --theme-bg-advanced-toggle-hover: #FBBF24; /* Tailwind amber-400 */
+
+            --theme-text-primary: #78350F; /* Tailwind amber-900 (dark orange-brown text) */
+            --theme-text-secondary: #B45309; /* Tailwind amber-700 (orange-brown text) */
+            --theme-text-accent: #F59E0B; /* Tailwind amber-500 (main accent) */
+            --theme-text-advanced-toggle: #78350F; /* Tailwind amber-900 */
+            --theme-text-button-primary: #ffffff;
+            --theme-text-placeholder: #D97706; /* Tailwind amber-600 */
+
+            --theme-border-primary: #FDBA74; /* Tailwind orange-300 */
+            --theme-border-accent: #FB923C; /* Tailwind orange-400 */
+            --theme-border-dashed: #FDE68A;
+            --theme-border-advanced: #FCD34D; /* Tailwind yellow-400 */
+            
+            --theme-accent-primary: #F59E0B; /* Tailwind amber-500 */
+            --theme-accent-primary-hover: #D97706; /* Tailwind amber-600 */
+            --theme-accent-secondary: #FBBE24; /* Tailwind amber-400 */
+            --theme-ring-focus: #F59E0B;
+            --theme-icon-filter: invert(65%) sepia(61%) saturate(2152%) hue-rotate(359deg) brightness(100%) contrast(93%); /* Amberish */
+        }
+
+        body.theme-night { /* Xanh đen có đốm trắng - Dark Blue-Black with Stars */
+            --theme-bg-primary: #0B1120; /* Very dark blue, near black */
+            --theme-bg-secondary: #111827; /* Tailwind gray-900 (component background) */
+            --theme-bg-tertiary: #1F2937; /* Tailwind gray-800 (cards, tertiary elements) */
+            --theme-bg-input: #1F2937;
+            --theme-bg-advanced-toggle: #312E81; /* Tailwind indigo-800 */
+            --theme-bg-advanced-toggle-hover: #3730A3; /* Tailwind indigo-700 */
+            --theme-bg-advanced-toggle-disabled: #4B5563; /* gray-600 */
+
+            --theme-text-primary: #E5E7EB; /* Tailwind gray-200 (light text "white specks") */
+            --theme-text-secondary: #9CA3AF; /* Tailwind gray-400 (medium light text) */
+            --theme-text-accent: #60A5FA; /* Tailwind blue-400 (brighter star accent) */
+            --theme-text-advanced-toggle: #C7D2FE; /* Tailwind indigo-200 */
+            --theme-text-advanced-toggle-disabled: #9CA3AF; 
+            --theme-text-button-primary: #FFFFFF;
+            --theme-text-placeholder: #4B5563; /* Tailwind gray-600 placeholder */
+
+            --theme-border-primary: #374151; /* Tailwind gray-700 */
+            --theme-border-accent: #4F46E5; /* Tailwind indigo-600 */
+            --theme-border-dashed: #374151;
+            --theme-border-advanced: #5B21B6; /* Tailwind purple-700 */
+            
+            --theme-accent-primary: #60A5FA; /* Tailwind blue-400 */
+            --theme-accent-primary-hover: #3B82F6; /* Tailwind blue-500 */
+            --theme-accent-secondary: #818CF8; /* Tailwind indigo-400 */
+            --theme-ring-focus: #60A5FA;
+            --theme-scrollbar-thumb: #4B5563;
+            /* Filter for light icons on dark background */
+            --theme-icon-filter: invert(88%) sepia(11%) saturate(432%) hue-rotate(195deg) brightness(93%) contrast(86%); 
+        }
+        
+        body.theme-night {
+             /* Subtle star effect for the main body background only */
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(229, 231, 235, 0.3) .5px, transparent 0), /* smaller, more numerous stars */
+                radial-gradient(circle at 15px 15px, rgba(229, 231, 235, 0.15) 1px, transparent 0); /* larger, sparser stars */
+            background-size: 20px 20px, 50px 50px;
+        }
+
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--theme-bg-primary);
+            color: var(--theme-text-primary);
+            transition: background-color 0.5s ease, color 0.5s ease, background-image 0.5s ease;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--theme-scrollbar-track);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--theme-scrollbar-thumb);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--theme-accent-primary);
+        }
+
+        /* Tailwind focus ring color override */
+        *:focus {
+          --tw-ring-color: var(--theme-ring-focus);
+        }
+        
+        .loading-spinner-animation {
+            border: 4px solid var(--theme-bg-tertiary); /* Light grey */
+            border-top: 4px solid var(--theme-accent-primary); /* Accent color */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Ensure placeholder colors also adapt if possible (Tailwind provides utilities) */
+        input::placeholder, textarea::placeholder {
+            color: var(--theme-text-placeholder);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.3.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="flex justify-center items-start min-h-screen p-5 box-border">
+    <div id="root" class="w-full max-w-4xl"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

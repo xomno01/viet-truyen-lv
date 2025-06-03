@@ -1,0 +1,14 @@
+# Cài đặt bản dựng cơ bản
+[build]
+  # Thư mục chứa các tệp đã xây dựng của bạn (ở đây là gốc vì không có bước build riêng)
+  publish = "."
+  # Lệnh để xây dựng trang web của bạn (không cần thiết cho dự án này vì nó là static HTML với JS modules)
+  # command = "echo 'No build command needed'" # Bạn có thể bỏ trống hoặc thêm lệnh no-op
+
+# Quy tắc chuyển hướng cho Single Page Application (SPA)
+# Điều này đảm bảo rằng tất cả các yêu cầu điều hướng đến index.html
+# để React (hoặc JavaScript phía client) có thể xử lý định tuyến.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
